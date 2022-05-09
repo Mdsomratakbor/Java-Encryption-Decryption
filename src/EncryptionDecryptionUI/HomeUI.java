@@ -9,7 +9,11 @@ import java.awt.event.MouseEvent;
 public class HomeUI {
 
     public static void main(String[] args) {
+
         JFrame home=new JFrame();
+        JFrame Ui = new JFrame();
+        Ui.setContentPane(new EncryptionUI().EncryptionUIPanel);
+        Ui.setVisible(true);
         home.setTitle("Home");
         JLabel projectTitle;
         projectTitle=new JLabel("Encryption and Decryption Application");
@@ -69,7 +73,7 @@ public class HomeUI {
         encryption.setFont(new Font("Serif", Font.BOLD, 16));
         decryption.setFont(new Font("Serif", Font.BOLD, 16));
 
-       
+
         encryption.setBounds(180,100,120, 40);
         decryption.setBounds(320,100,120, 40);
 
@@ -83,7 +87,7 @@ public class HomeUI {
         home.setLayout(null);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         home.setLocation(dim.width/2-home.getSize().width/2, dim.height/2-home.getSize().height/2);
-        home.setVisible(true);
+        home.setVisible(false);
         home.setAlwaysOnTop(true);
     }
 
