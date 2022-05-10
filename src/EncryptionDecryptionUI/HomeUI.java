@@ -1,19 +1,27 @@
 package EncryptionDecryptionUI;
 
+import EncryptionDecryptionServices.EncryptionService;
+import EncryptionDecryptionServices.IEncryptionService;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 public class HomeUI {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
 
         JFrame home=new JFrame();
-        JFrame Ui = new JFrame();
-        Ui.setContentPane(new EncryptionUI().EncryptionUIPanel);
-        Ui.setVisible(true);
+
         home.setTitle("Home");
         JLabel projectTitle;
         projectTitle=new JLabel("Encryption and Decryption Application");
@@ -27,58 +35,87 @@ public class HomeUI {
         home.add(projectTitle);
 
 
-        JButton encryption, decryption;
+        JButton btnEncryption, btnDecryption;
 
-        encryption = new JButton("Encryption");
-        decryption = new JButton("Decryption");
+        btnEncryption = new JButton("Encryption");
+        btnDecryption = new JButton("Decryption");
 
-        encryption.setBackground(Color.lightGray);
-        decryption.setBackground(Color.lightGray);
-        encryption.setOpaque(true);
+        btnEncryption.setBackground(Color.lightGray);
+        btnDecryption.setBackground(Color.lightGray);
+        btnEncryption.setOpaque(true);
 
 
-        encryption.setBorder(BorderFactory.createLineBorder(Color.white));
-        decryption.setBorder(BorderFactory.createLineBorder(Color.white));
+        btnEncryption.setBorder(BorderFactory.createLineBorder(Color.white));
+        btnDecryption.setBorder(BorderFactory.createLineBorder(Color.white));
 
-        encryption.addMouseListener(new MouseAdapter()
-        {
-            public void mouseEntered(MouseEvent evt)
-            {
-                encryption.setBackground(Color.white);
-                encryption.setBorder(BorderFactory.createLineBorder(Color.pink));
-            }
-            public void mouseExited(MouseEvent evt)
-            {
-                encryption.setBackground(Color.lightGray);
-            }
-        });
-        decryption.addMouseListener(new MouseAdapter()
-        {
-            public void mouseEntered(MouseEvent evt)
-            {
-                decryption.setBackground(Color.white);
-                decryption.setBorder(BorderFactory.createLineBorder(Color.pink));
-            }
-            public void mouseExited(MouseEvent evt)
-            {
-                decryption.setBackground(Color.lightGray);
+
+        btnEncryption.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //call the object of NewWindow and set visible true
+                EncryptionUI frame = null;
+                try {
+
+                    EncryptionUI encryptionForm = new EncryptionUI();
+
+
+                    frame = new EncryptionUI();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                frame.setVisible(true);
+                //set default close operation
+                //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
 
+        btnDecryption.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
 
-        encryption.setForeground(Color.black);
-        decryption.setForeground(Color.black);
+            }
+        });
 
 
-        encryption.setFont(new Font("Serif", Font.BOLD, 16));
-        decryption.setFont(new Font("Serif", Font.BOLD, 16));
+        btnEncryption.addMouseListener(new MouseAdapter()
+        {
+            public void mouseEntered(MouseEvent evt)
+            {
+                btnEncryption.setBackground(Color.white);
+                btnEncryption.setBorder(BorderFactory.createLineBorder(Color.pink));
+            }
+            public void mouseExited(MouseEvent evt)
+            {
+                btnEncryption.setBackground(Color.lightGray);
+            }
+        });
+        btnDecryption.addMouseListener(new MouseAdapter()
+        {
+            public void mouseEntered(MouseEvent evt)
+            {
+                btnDecryption.setBackground(Color.white);
+                btnDecryption.setBorder(BorderFactory.createLineBorder(Color.pink));
+            }
+            public void mouseExited(MouseEvent evt)
+            {
+                btnDecryption.setBackground(Color.lightGray);
+            }
+        });
 
 
-        encryption.setBounds(180,100,120, 40);
-        decryption.setBounds(320,100,120, 40);
+        btnEncryption.setForeground(Color.black);
+        btnDecryption.setForeground(Color.black);
 
-        home.add(encryption);
-        home.add(decryption);
+
+        btnEncryption.setFont(new Font("Serif", Font.BOLD, 16));
+        btnDecryption.setFont(new Font("Serif", Font.BOLD, 16));
+
+
+        btnEncryption.setBounds(180,100,120, 40);
+        btnDecryption.setBounds(320,100,120, 40);
+
+        home.add(btnEncryption);
+        home.add(btnDecryption);
 
 
 
@@ -87,7 +124,8 @@ public class HomeUI {
         home.setLayout(null);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         home.setLocation(dim.width/2-home.getSize().width/2, dim.height/2-home.getSize().height/2);
-        home.setVisible(false);
+        home.setVisible(true);
+        home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         home.setAlwaysOnTop(true);
     }
 
