@@ -1,13 +1,7 @@
 package EncryptionDecryptionUI;
 
-import EncryptionDecryptionServices.DecryptionService;
 import EncryptionDecryptionServices.EncryptionService;
-import EncryptionDecryptionServices.IDecryptionService;
 import EncryptionDecryptionServices.IEncryptionService;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -24,7 +18,7 @@ public class EncryptionUI extends JFrame {
 
 
         IEncryptionService ed =new EncryptionService();
-
+        setResizable(false);
         setTitle("Encryption");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setBounds(130,50, 600,600);
@@ -79,7 +73,6 @@ public class EncryptionUI extends JFrame {
         btnProcess.setBorder(BorderFactory.createLineBorder(Color.white));
 
 
-
         btnClose = new JButton("Close");
         btnClose.setBackground(Color.red);
         btnClose.setForeground(Color.white);
@@ -93,9 +86,26 @@ public class EncryptionUI extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                  textAreaEncryptionResult.setText(ed.encrypt(textEncryptionValue.getText(), txtEncryptionKey.getText() )) ;
+                    if(txtEncryptionKey.getText().equals("")){
+                        MessageUI message = new MessageUI("Please provide a key for encryption");
+                        message.setVisible(true);
+                    }
+                    else if(txtEncryptionKey.getText().length()<=10){
+                        MessageUI message = new MessageUI("Key length must be grater then or equals to 10 characters");
+                        message.setVisible(true);
+                    }
+                    else if(textEncryptionValue.getText().equals("")){
+                        MessageUI message = new MessageUI("Please provide a value for encryption");
+                        message.setVisible(true);
+                    }
+
+                    else{
+                        textAreaEncryptionResult.setText(ed.encrypt(textEncryptionValue.getText(), txtEncryptionKey.getText() )) ;
+                    }
+
                 } catch (Exception ex) {
                     ex.printStackTrace();
+
                 }
 
             }
@@ -162,26 +172,6 @@ public class EncryptionUI extends JFrame {
 
 
     }
-    public static void main(String[] args) {
-
-        EventQueue.invokeLater(new Runnable()
-        {
-            public void run()
-            {
-                //try - catch block
-                try
-                {
-                    //Create object of NewWindow
-                    EncryptionUI frame = new EncryptionUI();
-                    //set frame visible true
-                    frame.setVisible(true);
-                }
-                catch (Exception e)
-                {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//
 
 }

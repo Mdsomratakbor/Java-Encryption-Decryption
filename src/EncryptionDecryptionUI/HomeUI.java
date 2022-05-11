@@ -1,28 +1,25 @@
 package EncryptionDecryptionUI;
-
-import EncryptionDecryptionServices.EncryptionService;
-import EncryptionDecryptionServices.IEncryptionService;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-public class HomeUI {
+public class HomeUI extends  JFrame {
 
-    public static void main(String[] args)  {
+    public  HomeUI() throws IOException {
 
-        JFrame home=new JFrame();
+        BufferedImage myPicture = ImageIO.read(new File("images/source.gif"));
 
-        home.setTitle("Home");
+        JLabel picLabel = new JLabel(new ImageIcon(myPicture));
+        picLabel.setBounds(160,100, 280,280);
+        picLabel.setBackground(Color.white);
+        picLabel.setOpaque(true);
+        add(picLabel);
+
+
         JLabel projectTitle;
         projectTitle=new JLabel("Encryption and Decryption Application");
         projectTitle.setBounds(130,50, 340,40);
@@ -32,7 +29,7 @@ public class HomeUI {
         projectTitle.setFont(new Font("Serif", Font.BOLD, 20));
         projectTitle.setHorizontalTextPosition(JLabel.CENTER);
         projectTitle.setVerticalTextPosition(JLabel.CENTER);
-        home.add(projectTitle);
+        add(projectTitle);
 
 
         JButton btnEncryption, btnDecryption;
@@ -55,24 +52,31 @@ public class HomeUI {
                 //call the object of NewWindow and set visible true
                 EncryptionUI frame = null;
                 try {
-
                     EncryptionUI encryptionForm = new EncryptionUI();
-
-
                     frame = new EncryptionUI();
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
+
                 frame.setVisible(true);
-                //set default close operation
-                //setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
 
         btnDecryption.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                //call the object of NewWindow and set visible true
+                DecryptionUI frame = null;
+                try {
+                    DecryptionUI encryptionForm = new DecryptionUI();
+                    frame = new DecryptionUI();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                frame.setVisible(true);
+                //set default close operation
+               setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
             }
         });
 
@@ -111,22 +115,45 @@ public class HomeUI {
         btnDecryption.setFont(new Font("Serif", Font.BOLD, 16));
 
 
-        btnEncryption.setBounds(180,100,120, 40);
-        btnDecryption.setBounds(320,100,120, 40);
+        btnEncryption.setBounds(180,400,120, 40);
+        btnDecryption.setBounds(320,400,120, 40);
 
-        home.add(btnEncryption);
-        home.add(btnDecryption);
+        add(btnEncryption);
+        add(btnDecryption);
 
 
-
-        home.setSize(600,600);
-        home.getContentPane().setBackground(Color.CYAN);
-        home.setLayout(null);
+        setResizable(false);
+        setTitle("Home");
+        setSize(600,600);
+        getContentPane().setBackground(Color.CYAN);
+         setLayout(null);
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        home.setLocation(dim.width/2-home.getSize().width/2, dim.height/2-home.getSize().height/2);
-        home.setVisible(true);
-        home.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        home.setAlwaysOnTop(true);
+        setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    }
+    public static void main(String[] args) {
+
+        EventQueue.invokeLater(new Runnable()
+        {
+            public void run()
+            {
+                //try - catch block
+                try
+                {
+                    //Create object of NewWindow
+                    HomeUI frame = new HomeUI();
+                    //set frame visible true
+                    frame.setVisible(true);
+                    frame.transferFocusBackward();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
 
