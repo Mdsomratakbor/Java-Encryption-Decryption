@@ -147,6 +147,7 @@ public class HomeUI extends  JFrame {
                     //set frame visible true
                     frame.setVisible(true);
                     frame.transferFocusBackward();
+                   // frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
                 }
                 catch (Exception e)
                 {

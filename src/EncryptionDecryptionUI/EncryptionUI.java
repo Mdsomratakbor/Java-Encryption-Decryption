@@ -59,6 +59,7 @@ public class EncryptionUI extends JFrame {
         textEncryptionValue.setBounds(205, 140, 300, 32);
 
         textAreaEncryptionResult = new JTextArea();
+        textAreaEncryptionResult.setLineWrap(true);
         textAreaEncryptionResult.setBounds(205, 230, 300, 150);
 
 

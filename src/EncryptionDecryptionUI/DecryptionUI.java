@@ -62,6 +62,7 @@ public class DecryptionUI extends JFrame {
         textDecryptionValue.setBounds(205, 140, 300, 32);
 
         textAreaDecryptionResult = new JTextArea();
+        textAreaDecryptionResult.setLineWrap(true);
         textAreaDecryptionResult.setBounds(205, 230, 300, 150);
 
 
